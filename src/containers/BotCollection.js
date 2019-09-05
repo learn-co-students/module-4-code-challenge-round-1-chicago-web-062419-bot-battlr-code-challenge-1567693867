@@ -15,11 +15,13 @@ class BotCollection extends React.Component {
   //your code here
 
   render(){
+    const mappedBots = this.props.bots.map((bot) => {
+      return <BotCard handleClick={ this.props.handleClick } key={bot.id} bot={bot}/>
+    })
   	return (
   	  <div className="ui four column grid">
     		<div className="row">
-    		  <BotCard key={BotCard.id}/>
-			  <BotSpecs />
+          {mappedBots}
     		</div>
   	  </div>
   	);
