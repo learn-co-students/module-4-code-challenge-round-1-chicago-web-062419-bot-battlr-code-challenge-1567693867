@@ -1,7 +1,8 @@
 import React from "react";
 
 const BotCard = props => {
-  const { bot, addToArmy, removeFromArmy } = props;
+  // const { bot, addToArmy, removeFromArmy } = props; //from part 1
+  const { bot, showBotSpecs, removeFromArmy } = props;
   // console.log(props)
 
   let botType;
@@ -31,7 +32,7 @@ const BotCard = props => {
           <img
             alt="oh no!"
             src={bot.avatar_url}
-            onClick={addToArmy ? addToArmy : removeFromArmy}
+            onClick={showBotSpecs ? showBotSpecs : removeFromArmy}
           />
         </div>
         <div className="content">

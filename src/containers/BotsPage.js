@@ -1,13 +1,16 @@
 import React from "react";
 import BotCollection from "./BotCollection";
 import YourBotArmy from "./YourBotArmy";
+import BotSpecs from '../components/BotSpecs'
 
 const botsURL = "https://bot-battler-api.herokuapp.com/api/v1/bots";
 
 class BotsPage extends React.Component {
   //start here with your code for step one
   state = {
-    allBots: []
+    allBots: [],
+    showBotID: 0
+    // showBotSpecsPage: false
   };
 
   componentDidMount() {
@@ -23,6 +26,7 @@ class BotsPage extends React.Component {
   addToArmy = e => {
     const target = e.target;
     const targetID = Number(target.parentElement.id);
+    // debugger
     const foundBot = this.state.allBots.find(bot => bot.id === targetID);
     foundBot.myArmy = true;
     this.setState(prevState => ({
@@ -40,16 +44,38 @@ class BotsPage extends React.Component {
     }));
   };
 
+  showBotSpecs = e => {
+    const target = e.target;
+    const targetID = Number(target.parentElement.id);
+    // console.log(targetID)
+    this.setState({showBotID: targetID})
+  }
+
+  backToHome = e => {
+    this.setState({showBotID: 0 })
+  }
+
   render() {
-    const { allBots } = this.state;
+    const { allBots, showBotID } = this.state;
     const filterMyArmy = allBots.filter(bot => bot.myArmy);
+    const selctedBot = allBots.find(bot => bot.id === showBotID)
+    console.log(selctedBot)
     return (
       <div>
         <YourBotArmy
           filterMyArmy={filterMyArmy}
           removeFromArmy={this.removeFromArmy}
         />
-        <BotCollection allBots={allBots} addToArmy={this.addToArmy} />
+        {/* Need ternary for BotCollection or BotSpecs */}
+        { showBotID > 0 ? 
+          <BotSpecs bot={selctedBot} backToHome={this.backToHome} addToArmy={this.addToArmy}/> 
+          : 
+          <BotCollection 
+            allBots={allBots} 
+            // addToArmy={this.addToArmy} //part 1
+            showBotSpecs={this.showBotSpecs}
+          />
+        }
       </div>
     );
   }
