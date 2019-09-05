@@ -1,7 +1,9 @@
 import React from "react";
 
 const BotCard = props => {
-  const { bot } = props;
+  // const { bot, addToArmy, removeFromArmy } = props; //from part 1
+  const { bot, showBotSpecs, removeFromArmy } = props;
+  // console.log(props)
 
   let botType;
 
@@ -20,14 +22,18 @@ const BotCard = props => {
   }
 
   return (
-    <div className="ui column">
+    <div className="ui column" id={bot.id}>
       <div
         className="ui card"
         key={bot.id}
-        onClick={() => console.log("add code to connect event listener")}
+        // moved to clickable image
       >
-        <div className="image">
-          <img alt="oh no!" src={bot.avatar_url} />
+        <div className="image" id={bot.id}>
+          <img
+            alt="oh no!"
+            src={bot.avatar_url}
+            onClick={showBotSpecs ? showBotSpecs : removeFromArmy}
+          />
         </div>
         <div className="content">
           <div className="header">
@@ -56,7 +62,6 @@ const BotCard = props => {
       </div>
     </div>
   );
-
 };
 
 export default BotCard;
