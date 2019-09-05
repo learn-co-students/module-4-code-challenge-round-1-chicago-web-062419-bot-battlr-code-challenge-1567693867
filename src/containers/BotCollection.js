@@ -5,10 +5,14 @@ class BotCollection extends React.Component {
   //your code here
 
   render(){
-  	return (
+
+		return (
   	  <div className="ui four column grid">
     		<div className="row">
-    		  {/*...and here..*/}
+    		  {this.props.allBots.map(bot => 
+						 <BotCard singleBot={bot} />
+					)
+				}
     		  Collection of all bots
     		</div>
   	  </div>
