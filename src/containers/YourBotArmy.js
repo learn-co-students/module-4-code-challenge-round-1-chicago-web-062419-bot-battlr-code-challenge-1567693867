@@ -9,6 +9,7 @@ class YourBotArmy extends React.Component {
       return <BotCard bot={bot} key={bot.id + 'army'} removeBot={this.props.removeBot}/>
     })
   }
+  
   render(){
     return (
       <div className="ui segment inverted olive bot-army">

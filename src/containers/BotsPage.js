@@ -1,7 +1,8 @@
 import React from "react";
 import BotCollection from './BotCollection'
 import YourBotArmy from "./YourBotArmy";
-import { stat } from "fs";
+import BotSpecs from "../components/BotSpecs"
+// import { stat } from "fs";
 
 
 class BotsPage extends React.Component {
@@ -10,13 +11,23 @@ class BotsPage extends React.Component {
     super()
     this.state = {
       allBots: [],
-      army: []
+      army: [],
+      viewSpecBot: undefined
     }
   }
 
   //Fetches bots
   componentDidMount(){
     this.fetchBots()
+  }
+
+  setViewSpecs = (bot) => {
+    let viewSpecBot = this.state.allBots.find( robot => robot.id === bot.id)
+    this.setState({viewSpecBot: viewSpecBot})
+  }
+
+  clearViewSpec = () => {
+    this.setState({viewSpecBot: undefined})
   }
 
   enlistBot = (bot) => {
@@ -47,8 +58,12 @@ class BotsPage extends React.Component {
     return (
       <div>
         <YourBotArmy army={this.state.army} removeBot={this.removeBot} />
-        <BotCollection allBots={this.state.allBots} enlistBot={this.enlistBot}/>
-
+        {this.state.viewSpecBot ? 
+          <BotSpecs bot={this.state.viewSpecBot} enlistBot={this.enlistBot} clearViewSpec={this.clearViewSpec} /> 
+          : 
+          <BotCollection allBots={this.state.allBots} enlistBot={this.enlistBot} setViewSpecs={this.setViewSpecs} />
+        }
+        
       </div>
     );
   }
