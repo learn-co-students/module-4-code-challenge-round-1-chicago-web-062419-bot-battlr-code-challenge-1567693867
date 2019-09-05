@@ -3,37 +3,36 @@ import BotsPage from "./containers/BotsPage";
 import "./App.css";
 
 class App extends Component {
-
   state = {
     allBots: [],
     botArmy: []
-  }
+  };
 
   fetchBots = () => {
     fetch("https://bot-battler-api.herokuapp.com/api/v1/bots")
-    .then(res => res.json())
-    .then(data => this.setState({allBots: data}))
-  }
+      .then(res => res.json())
+      .then(data => this.setState({ allBots: data }));
+  };
 
   componentDidMount() {
-    this.fetchBots()
+    this.fetchBots();
   }
 
-  updateArmy = (id) => {
-    // console.log("HI")
-    let addArmy = this.state.allBots.filter(bot => bot.id === id) // one bot
-    // console.log(addArmy[0])
-    let newBots = this.state.allBots.filter(bot => bot.id !== id) // array of all bots less army bot
-    // console.log(newBots)
-    this.setState({allBots: newBots})
-    this.setState({botArmy: [...this.state.botArmy, addArmy[0]]})
-  }
-  
+  updateArmy = id => {
+    let addArmy = this.state.allBots.filter(bot => bot.id === id); // one bot
+    let newBots = this.state.allBots.filter(bot => bot.id !== id); // array of all bots less army bot
+    this.setState({ allBots: newBots }); // Set allBots as the updated array of Bots
+    this.setState({ botArmy: [...this.state.botArmy, addArmy[0]] }); 
+  };
+
   render() {
-    console.log(this.state)
     return (
       <div className="App">
-        <BotsPage allBots={this.state.allBots} updateArmy={this.updateArmy} botArmy={this.state.botArmy}/>
+        <BotsPage
+          allBots={this.state.allBots}
+          updateArmy={this.updateArmy}
+          botArmy={this.state.botArmy}
+        />
       </div>
     );
   }
