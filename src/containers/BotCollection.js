@@ -4,11 +4,19 @@ import BotCard from "../components/BotCard";
 class BotCollection extends React.Component {
   //your code here
 
+  renderBots = () =>{
+	return this.props.allBots.map(bot => {
+		return <BotCard bot={bot} key={bot.id} enlistBot={this.props.enlistBot}/>
+	})
+  }
+
+
   render(){
+
   	return (
   	  <div className="ui four column grid">
     		<div className="row">
-    		  {/*...and here..*/}
+    		  {this.renderBots()}
     		  Collection of all bots
     		</div>
   	  </div>
