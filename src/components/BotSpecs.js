@@ -1,5 +1,7 @@
 import React from "react";
+import BotCard from "../components/BotCard";
 
+// Functional component (props)
 const BotSpecs = props => {
   let { bot } = props;
 
@@ -61,7 +63,7 @@ const BotSpecs = props => {
             <button
               className="ui button fluid"
               onClick={() =>
-                console.log('connect this to a function that shows all bots')
+                console.log("connect this to a function that shows all bots")
               }
             >
               Go Back
@@ -81,7 +83,6 @@ const BotSpecs = props => {
       </div>
     </div>
   );
-
 };
 
 export default BotSpecs;

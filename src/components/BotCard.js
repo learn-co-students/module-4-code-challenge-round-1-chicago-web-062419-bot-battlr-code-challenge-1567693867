@@ -1,11 +1,23 @@
 import React from "react";
 
+// Functional component (props)
 const BotCard = props => {
-  const { bot } = props;
+  // Destructure
+  console.log(props.bot);
+  const {
+    armor,
+    avatar_url,
+    bot_class,
+    catchphrase,
+    id,
+    name,
+    damage,
+    health
+  } = props.bot;
 
   let botType;
 
-  switch (bot.bot_class) {
+  switch (props.bot.bot_class) {
     case "Assault":
       botType = <i className="icon military" />;
       break;
@@ -23,40 +35,43 @@ const BotCard = props => {
     <div className="ui column">
       <div
         className="ui card"
-        key={bot.id}
-        onClick={() => console.log("add code to connect event listener")}
+        key={props.bot.id}
+        // On click, use the function that was passed down to add the bot to the enlisted bot array
+        onClick={() => props.enlistBot(props.bot)}
+        // Conditionally render the bots depending on whether they are enlisted
+        {...(props.bot.enlisted ? null : <img src={avatar_url} alt={name} />)}
       >
         <div className="image">
-          <img alt="oh no!" src={bot.avatar_url} />
+          {/* Can pass in destructured name */}
+          <img alt={name} src={props.bot.avatar_url} />
         </div>
         <div className="content">
           <div className="header">
-            {bot.name} {botType}
+            {props.bot.name} {props.botType}
           </div>
 
           <div className="meta text-wrap">
-            <small>{bot.catchphrase}</small>
+            <small>{props.bot.catchphrase}</small>
           </div>
         </div>
         <div className="extra content">
           <span>
             <i className="icon heartbeat" />
-            {bot.health}
+            {props.bot.health}
           </span>
 
           <span>
             <i className="icon lightning" />
-            {bot.damage}
+            {props.bot.damage}
           </span>
           <span>
             <i className="icon shield" />
-            {bot.armor}
+            {props.bot.armor}
           </span>
         </div>
       </div>
     </div>
   );
-
 };
 
 export default BotCard;
