@@ -1,3 +1,5 @@
+// This page only displays bots that have been selected by the user
+
 import React from "react";
 import BotCard from "../components/BotCard";
 
