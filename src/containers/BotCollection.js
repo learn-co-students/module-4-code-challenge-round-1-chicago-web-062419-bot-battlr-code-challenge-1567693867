@@ -2,15 +2,40 @@ import React from "react";
 import BotCard from "../components/BotCard";
 
 class BotCollection extends React.Component {
-  //your code here
+		constructor(){
+			super()
+			 	this.state = {
+					allBots: []
+				 }
+		}
+
+	componentDidMount(){
+		fetch("https://bot-battler-api.herokuapp.com/api/v1/bots")
+		.then(response => response.json())
+		.then(
+			(bots) => {	
+			this.setState({ 
+				allBots: bots})
+				console.log(bots)	
+		})
+	}
+
 
   render(){
-  	return (
-  	  <div className="ui four column grid">
-    		<div className="row">
-    		  {/*...and here..*/}
-    		  Collection of all bots
-    		</div>
+	    const { allBots } = this.state
+	  return (
+		  <div className="ui four column grid">
+    		{/* <div className="row" */}
+			<ul>
+			{allBots.map(bot => 
+				<li key={bot.id} >
+				{bot.name} {bot.avatar_url}
+				</li>
+			)}
+			</ul>
+			{/* </div> */}
+}
+
   	  </div>
   	);
   }
