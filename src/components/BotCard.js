@@ -1,7 +1,7 @@
 import React from "react";
 
 const BotCard = props => {
-  const { bot } = props;
+  const bot = props.botData;
 
   let botType;
 
@@ -19,13 +19,15 @@ const BotCard = props => {
       botType = <div />;
   }
 
+  function handleClick() {
+    console.log(props);
+    const handler = props.handleClick;
+    handler(bot.id);  // this should swap between the move-to-army and move-to-collection functions
+  }
+
   return (
     <div className="ui column">
-      <div
-        className="ui card"
-        key={bot.id}
-        onClick={() => console.log("add code to connect event listener")}
-      >
+      <div className="ui card" key={bot.id} onClick={handleClick}>
         <div className="image">
           <img alt="oh no!" src={bot.avatar_url} />
         </div>
@@ -56,7 +58,6 @@ const BotCard = props => {
       </div>
     </div>
   );
-
 };
 
 export default BotCard;
