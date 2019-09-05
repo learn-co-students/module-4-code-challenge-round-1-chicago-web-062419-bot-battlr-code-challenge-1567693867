@@ -5,9 +5,6 @@ class YourBotArmy extends React.Component {
   //your bot army code here...
   constructor(props) {
     super(props);
-    this.state = {
-      yourBots: []
-    };
   }
 
   render() {

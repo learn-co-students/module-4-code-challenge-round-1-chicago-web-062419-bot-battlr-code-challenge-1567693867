@@ -12,7 +12,10 @@ class BotsPage extends React.Component {
     };
   }
 
-  addBotstoArmy;
+  // addBotsToArmy = event => {
+  //   const clickedBot = event.target;
+  //   this.setState({ army: event.target.value });
+  // };
 
   componentDidMount() {
     fetch("https://bot-battler-api.herokuapp.com/api/v1/bots")
