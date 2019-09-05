@@ -1,12 +1,16 @@
 import React from "react";
 import BotsCollection from './BotCollection'
 import YourBotArmy from './YourBotArmy'
+import BotSearch from '../components/BotSearch'
 
 class BotsPage extends React.Component {
   constructor(){
     super()
     this.state = {
-      allBots: []
+      allBots: [],
+      showDetails: false,
+      selectBot: 0,
+      query: ''
     }
   }
 
@@ -60,9 +64,20 @@ class BotsPage extends React.Component {
     return ownedBots
   }
 
+  handleSearch = (event, query) => {
+    this.setState({
+      query: query
+    })
+  }
+
+
+  
   render() {
+    console.log(this.state)
     return (
       <div>
+        <BotSearch handleSearch={this.handleSearch}/>
+        <br></br>
         <BotsCollection bots={this.filterFreeBots()} addBot={this.addBot}/>
         <YourBotArmy bots={this.filterOwnedBots()} addBot={this.addBot}/>
       </div>
