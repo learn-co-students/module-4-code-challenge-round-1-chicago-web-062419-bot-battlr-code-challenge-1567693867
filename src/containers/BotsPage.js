@@ -2,6 +2,7 @@ import React from "react";
 import BotCollection from "./BotCollection";
 import YourBotArmy from "./YourBotArmy";
 import BotSpecs from '../components/BotSpecs'
+import BotFilter from '../components/BotFilter'
 
 const botsURL = "https://bot-battler-api.herokuapp.com/api/v1/bots";
 
@@ -9,8 +10,8 @@ class BotsPage extends React.Component {
   //start here with your code for step one
   state = {
     allBots: [],
-    showBotID: 0
-    // showBotSpecsPage: false
+    showBotID: 0,
+    filterSelect: ''
   };
 
   componentDidMount() {
@@ -47,7 +48,6 @@ class BotsPage extends React.Component {
   showBotSpecs = e => {
     const target = e.target;
     const targetID = Number(target.parentElement.id);
-    // console.log(targetID)
     this.setState({showBotID: targetID})
   }
 
@@ -55,23 +55,31 @@ class BotsPage extends React.Component {
     this.setState({showBotID: 0 })
   }
 
+  handleFilter = e => {
+    const filterSelect = e.target.value
+    this.setState({ filterSelect })
+    console.log(filterSelect);
+  }
+
   render() {
-    const { allBots, showBotID } = this.state;
-    const filterMyArmy = allBots.filter(bot => bot.myArmy);
+    const { allBots, showBotID, filterSelect } = this.state;
+    const filterMyArmy = allBots.filter(bot => bot.myArmy)
     const selctedBot = allBots.find(bot => bot.id === showBotID)
-    console.log(selctedBot)
+    const filterAllBots = filterSelect ? allBots.filter(bot => bot.bot_class === filterSelect) : allBots
+    console.log(filterAllBots)
     return (
       <div>
         <YourBotArmy
           filterMyArmy={filterMyArmy}
           removeFromArmy={this.removeFromArmy}
         />
+        <BotFilter handleFilter={this.handleFilter} />
         {/* Need ternary for BotCollection or BotSpecs */}
         { showBotID > 0 ? 
           <BotSpecs bot={selctedBot} backToHome={this.backToHome} addToArmy={this.addToArmy}/> 
           : 
           <BotCollection 
-            allBots={allBots} 
+            allBots={filterAllBots} 
             // addToArmy={this.addToArmy} //part 1
             showBotSpecs={this.showBotSpecs}
           />
